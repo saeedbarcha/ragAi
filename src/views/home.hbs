@@ -1,0 +1,29 @@
+{{! use main layout }}
+{{! if you want to enforce a layout, you can set it in server or pass locals }}
+<section class="chat-wrap">
+  <div class="chat-box" id="chatBox">
+    <div class="msg bot">
+      <div class="bubble">
+        Hi! Ask a question and I will answer using the RAG knowledge base (Our Solar System).
+      </div>
+    </div>
+  </div>
+
+  <form class="chat-form" id="chatForm">
+    <input
+      id="questionInput"
+      type="text"
+      placeholder="Type your question..."
+      autocomplete="off"
+    />
+    <button type="submit" id="sendBtn">Send</button>
+  </form>
+
+  <div class="meta">
+    <label>
+      TopK
+      <input id="topK" type="number" value="4" min="1" max="10" />
+    </label>
+    <span id="status" class="status">Ready</span>
+  </div>
+</section>

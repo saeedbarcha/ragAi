@@ -1,0 +1,130 @@
+:root {
+  --bg: #0b1020;
+  --panel: #0f1730;
+  --text: #e7ebff;
+  --muted: #a9b1d6;
+  --accent: #4fd4f5;
+  --border: rgba(255,255,255,0.08);
+}
+
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    background-image: url(../img/img-01.svg);
+    background-size: contain;
+    background-repeat: repeat;
+    position: relative;
+}
+
+.container {
+  width: min(980px, 92vw);
+  margin: 0 auto;
+}
+
+.topbar {
+  border-bottom: 1px solid var(--border);
+  background: rgba(15, 23, 48, 0.7);
+  backdrop-filter: blur(10px);
+}
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+}
+.brand { font-weight: 700; }
+.pill {
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.chat-wrap {
+  margin: 18px 0 30px;
+}
+
+.chat-box {
+  height: 60vh;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  overflow: auto;
+}
+
+.msg { display: flex; margin: 10px 0; }
+.msg.user { justify-content: flex-end; }
+.msg.bot { justify-content: flex-start; }
+
+.bubble {
+  max-width: 78%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  line-height: 1.35;
+  white-space: pre-wrap;
+}
+
+.msg.user .bubble {
+  background: rgba(79, 212, 245, 0.12);
+  border-color: rgba(79, 212, 245, 0.25);
+}
+
+.msg.bot .bubble {
+  background: rgba(255,255,255,0.04);
+}
+
+.sources {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.chat-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.chat-form input {
+  flex: 1;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  outline: none;
+}
+.chat-form button {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(79, 212, 245, 0.35);
+  background: rgba(79, 212, 245, 0.15);
+  color: var(--text);
+  cursor: pointer;
+}
+.chat-form button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.meta {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.meta input {
+  width: 70px;
+  margin-left: 8px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+}
+.status { margin-left: auto; }
