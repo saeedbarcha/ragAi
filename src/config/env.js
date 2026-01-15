@@ -9,8 +9,10 @@ export const env = {
   APP_TITLE: process.env.APP_TITLE || "RAG Chatbot",
   OPENROUTER_MODEL: process.env.OPENROUTER_MODEL || "kwaipilot/kat-coder-pro:free",
   TEMPERATURE: Number(process.env.TEMPERATURE ?? "0.3"),
-  OPENROUTER_EMBEDDING_MODEL:
-    process.env.OPENROUTER_EMBEDDING_MODEL || "text-embedding-3-small",
+
+  // HuggingFace config
+  HUGGINGFACE_API_KEY: process.env.HUGGINGFACE_API_KEY,
+  EMBEDDING_MODEL: process.env.EMBEDDING_MODEL || "sentence-transformers/all-mpnet-base-v2",
 
   // Pinecone config
   PINECONE_API_KEY: process.env.PINECONE_API_KEY,
@@ -22,6 +24,11 @@ export const env = {
 
 if (!env.OPENROUTER_API_KEY) {
   console.error("Missing OPENROUTER_API_KEY in .env");
+  process.exit(1);
+}
+
+if (!env.HUGGINGFACE_API_KEY) {
+  console.error("Missing HUGGINGFACE_API_KEY in .env");
   process.exit(1);
 }
 

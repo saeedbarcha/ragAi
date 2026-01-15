@@ -1,23 +1,20 @@
+// ragChain.js
 import { PromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
 import { StringOutputParser } from "@langchain/core/output_parsers";
-import { llm } from "./llm.js";
-import { getVectorStore } from "./vectorstore.js";
+import { llm, vectorStore } from "./ragCore.js";
 
 const ragPrompt = PromptTemplate.fromTemplate(`
-You are an expert Solar System assistant.
+You are a helpful and precise knowledge assistant.
 
-Your task is to answer questions using the provided context retrieved from the vector database.
-The context contains scientifically accurate information about planets, moons, stars, or other Solar System objects.
+Your task is to answer questions using ONLY the provided context retrieved from the uploaded documents.
 
 Rules:
-- Use the information present in the context to answer the question.
-- Do NOT add outside knowledge, assumptions, or general astronomy facts.
-- If the context does not contain enough information to answer the question, respond exactly with:
-  "I am not certain based on the provided context."
+- Use only the information present in the context to answer the question.
+- Do NOT add outside knowledge, assumptions, or general facts not supported by the context.
+- If the context does not contain enough information to answer fully, state clearly what is missing or say: "I cannot find the answer in the provided documents."
 - Keep answers clear, factual, and concise.
-- If numerical data (distance, mass, temperature, etc.) is present, include it exactly as stated.
-- Do NOT mention Pinecone, embeddings, vectors, or the context itself.
+- Include numerical data exactly as stated in the context.
 
 Context:
 {context}
@@ -28,24 +25,27 @@ User Question:
 Answer:
 `);
 
-
 const chain = RunnableSequence.from([ragPrompt, llm, new StringOutputParser()]);
 
-export async function askRag(question, topK = 4) {
-  const store = await getVectorStore();
-  const results = await store.similaritySearch(question, topK);
-
-  const context =
-    results.length > 0
+export async function askRag(question, topK = 6) {
+  try {
+    const results = await vectorStore.similaritySearch(question, topK);
+    const context = results.length > 0
       ? results.map((d, i) => `(${i + 1}) ${d.pageContent}`).join("\n\n")
       : "No relevant documents found.";
 
-  const answer = await chain.invoke({ context, question });
+    const answer = await chain.invoke({ context, question });
 
- return {
-  answer,
-  sources: results
-    .map((d) => d.metadata?.source)
-    .filter(Boolean),
-};
+    return {
+      answer,
+      sources: [...new Set(results.map(d => d.metadata?.source).filter(Boolean))],
+      scores: results.map(d => d.metadata?.score || 0) // Include cosine similarity scores
+    };
+  } catch (error) {
+    console.error("Error in askRag:", error);
+    return {
+      answer: "I'm sorry, I encountered an error while processing your request.",
+      sources: []
+    };
+  }
 }

@@ -1,0 +1,61 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    🎯 QUICK START: Complete Your Setup                       ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+✅ COMPLETED:
+  • Installed @langchain/community package
+  • Updated vectorstore.js to use HuggingFace embeddings
+  • Configured env.js with HuggingFace settings
+  • Set embedding model to: sentence-transformers/all-mpnet-base-v2
+
+⚠️  ACTION REQUIRED:
+
+1️⃣  GET YOUR HUGGINGFACE API KEY (FREE):
+    → Visit: https://huggingface.co/settings/tokens
+    → Click "New token"
+    → Name it: "RAG Chatbot"
+    → Access: Select "Read"
+    → Copy the token (starts with hf_...)
+
+2️⃣  UPDATE YOUR .ENV FILE:
+    → Open: d:/rag-chat/rag-backend/.env
+    → Find: HUGGINGFACE_API_KEY=your_huggingface_api_key_here
+    → Replace with: HUGGINGFACE_API_KEY=hf_your_actual_token
+
+3️⃣  CHECK PINECONE INDEX DIMENSION:
+    → Visit: https://app.pinecone.io/
+    → Select your index: chatrag
+    → Verify dimension is 768 (required for all-mpnet-base-v2)
+    → If not 768, you'll need to create a new index with 768 dimensions
+
+4️⃣  RESTART & TEST:
+    → Backend will auto-restart after saving .env
+    → Upload a test document
+    → Ask a question to verify it works
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         📊 MODEL SPECIFICATIONS                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Model:              sentence-transformers/all-mpnet-base-v2
+Embedding Dimension: 768
+Max Sequence:       384 tokens
+Provider:           HuggingFace (FREE)
+Quality:            ⭐⭐⭐⭐⭐ Excellent for semantic search
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                           🔧 TROUBLESHOOTING                                  ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+❌ "Missing HUGGINGFACE_API_KEY in .env"
+   → Add your HuggingFace API key to .env file
+
+❌ Dimension mismatch error
+   → Your Pinecone index must be 768 dimensions
+   → Create new index or reconfigure existing one
+
+❌ Rate limiting errors
+   → HuggingFace free tier has limits
+   → Wait a moment and retry, or upgrade account
+
+For detailed information, see: EMBEDDING_MODEL_SETUP.md

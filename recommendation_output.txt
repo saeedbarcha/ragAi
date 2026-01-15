@@ -1,0 +1,131 @@
+﻿­ƒôÜ BOOK RECOMMENDATION SYSTEM
+
+======================================================================
+
+­ƒôû Our Book Library:
+   1. Harry Potter and the Sorcerer's Stone
+   2. Harry Potter and the Chamber of Secrets
+   3. The Hobbit
+   4. Lord of the Rings
+   5. The Great Gatsby
+   6. Pride and Prejudice
+   7. To Kill a Mockingbird
+
+======================================================================
+­ƒöì You liked: "Harry Potter and the Sorcerer's Stone"
+======================================================================
+
+­ƒôØ Vocabulary (20 words): [a, and, chamber, gatsby, great, harry, hobbit, kill, lord, mockingbird, of, potter, prejudice, pride, rings, secrets, sorcerers, stone, the, to]
+
+Your book vector: [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0]
+
+­ƒôè Similarity Scores:
+
+Rank | Similarity | Book Title
+----------------------------------------------------------------------
+#1   | 61.72%     | ­ƒöÑ Harry Potter and the Chamber of Secrets
+#2   | 28.87%     | ­ƒôû The Hobbit
+#3   | 23.57%     | ­ƒôû The Great Gatsby
+#4   | 23.57%     | ­ƒôû Pride and Prejudice
+#5   | 20.41%     | ­ƒôû Lord of the Rings
+#6   | 0.00%      | ­ƒôû To Kill a Mockingbird
+
+======================================================================
+­ƒÄ» TOP 3 RECOMMENDATIONS FOR YOU:
+======================================================================
+
+1. "Harry Potter and the Chamber of Secrets"
+   Similarity: 61.72%
+   Vector: [0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0]
+   Formula: 4 / (2.4495 ├ù 2.6458) = 0.6172
+   Ô¡É HIGHLY RECOMMENDED! Very similar to what you like!
+
+2. "The Hobbit"
+   Similarity: 28.87%
+   Vector: [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+   Formula: 1 / (2.4495 ├ù 1.4142) = 0.2887
+   ­ƒôÜ DIFFERENT GENRE but worth exploring!
+
+3. "The Great Gatsby"
+   Similarity: 23.57%
+   Vector: [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+   Formula: 1 / (2.4495 ├ù 1.7321) = 0.2357
+   ­ƒôÜ DIFFERENT GENRE but worth exploring!
+
+======================================================================
+­ƒÅå BEST RECOMMENDATION:
+======================================================================
+
+"Harry Potter and the Chamber of Secrets"
+Similarity Score: 61.72%
+
+­ƒÆí Why? Because it shares many words with "Harry Potter and the Sorcerer's Stone"!
+
+
+
+
+======================================================================
+­ƒöì You liked: "The Hobbit"
+======================================================================
+
+­ƒôØ Vocabulary (20 words): [a, and, chamber, gatsby, great, harry, hobbit, kill, lord, mockingbird, of, potter, prejudice, pride, rings, secrets, sorcerers, stone, the, to]
+
+Your book vector: [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+
+­ƒôè Similarity Scores:
+
+Rank | Similarity | Book Title
+----------------------------------------------------------------------
+#1   | 40.82%     | Ô£à The Great Gatsby
+#2   | 35.36%     | Ô£à Lord of the Rings
+#3   | 28.87%     | ­ƒôû Harry Potter and the Sorcerer's Stone
+#4   | 26.73%     | ­ƒôû Harry Potter and the Chamber of Secrets
+#5   | 0.00%      | ­ƒôû Pride and Prejudice
+#6   | 0.00%      | ­ƒôû To Kill a Mockingbird
+
+======================================================================
+­ƒÄ» TOP 3 RECOMMENDATIONS FOR YOU:
+======================================================================
+
+1. "The Great Gatsby"
+   Similarity: 40.82%
+   Vector: [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+   Formula: 1 / (1.4142 ├ù 1.7321) = 0.4082
+   ­ƒæì GOOD MATCH! You might enjoy this!
+
+2. "Lord of the Rings"
+   Similarity: 35.36%
+   Vector: [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0]
+   Formula: 1 / (1.4142 ├ù 2.0000) = 0.3536
+   ­ƒæì GOOD MATCH! You might enjoy this!
+
+3. "Harry Potter and the Sorcerer's Stone"
+   Similarity: 28.87%
+   Vector: [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0]
+   Formula: 1 / (1.4142 ├ù 2.4495) = 0.2887
+   ­ƒôÜ DIFFERENT GENRE but worth exploring!
+
+======================================================================
+­ƒÅå BEST RECOMMENDATION:
+======================================================================
+
+"The Great Gatsby"
+Similarity Score: 40.82%
+
+­ƒÆí Why? Because it shares many words with "The Hobbit"!
+
+
+======================================================================
+­ƒôÜ HOW IT WORKS
+======================================================================
+
+1´©ÅÔâú  Convert each book title into a vector (list of numbers)
+2´©ÅÔâú  Calculate similarity using: (A ┬À B) / (||A|| ├ù ||B||)
+3´©ÅÔâú  Sort books by similarity score (0% to 100%)
+4´©ÅÔâú  Recommend the most similar books!
+
+­ƒÆí Books with similar words = Higher similarity score!
+­ƒÄ» Formula: cosine_similarity(A, B) = (A ┬À B) / (||A|| ├ù ||B||)
+
+Ô£à Now you can build your own recommendation system!
+

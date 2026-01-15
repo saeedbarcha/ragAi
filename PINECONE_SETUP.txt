@@ -1,0 +1,157 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              🎯 PINECONE INDEX CONFIGURATION CHECKLIST                       ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+⚠️  CRITICAL: Your Pinecone index MUST be configured correctly for cosine similarity!
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         REQUIRED CONFIGURATION                                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Index Name:     chatrag
+Dimension:      768          ← MUST match all-mpnet-base-v2 output
+Metric:         cosine       ← CRITICAL for cosine similarity!
+Cloud:          aws
+Region:         us-east-1
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    HOW TO CHECK YOUR CURRENT INDEX                           ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+1. Visit: https://app.pinecone.io/
+2. Click on your index: "chatrag"
+3. Check the following:
+   
+   ✓ Dimensions: Should show "768"
+   ✓ Metric: Should show "cosine"
+   
+   ❌ If Metric shows "euclidean" or "dotproduct" → WRONG!
+   ❌ If Dimensions shows anything other than 768 → WRONG!
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                  IF YOUR INDEX IS INCORRECTLY CONFIGURED                     ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+⚠️  You CANNOT change the metric or dimension of an existing index!
+    You must create a NEW index with the correct settings.
+
+OPTION 1: Create New Index via Pinecone Console
+────────────────────────────────────────────────
+1. Go to https://app.pinecone.io/
+2. Click "Create Index"
+3. Fill in:
+   - Name: chatrag-v2 (or delete old one and use "chatrag")
+   - Dimensions: 768
+   - Metric: cosine ← SELECT THIS!
+   - Cloud: AWS
+   - Region: us-east-1
+4. Click "Create Index"
+5. Update your .env file with the new index name
+
+OPTION 2: Create New Index via Python SDK
+──────────────────────────────────────────
+```python
+import pinecone
+
+# Initialize
+pinecone.init(api_key="your_pinecone_api_key")
+
+# Delete old index (optional)
+# pinecone.delete_index("chatrag")
+
+# Create new index with correct settings
+pinecone.create_index(
+    name="chatrag",
+    dimension=768,        # ← all-mpnet-base-v2 dimension
+    metric="cosine",      # ← CRITICAL!
+    cloud="aws",
+    region="us-east-1"
+)
+```
+
+OPTION 3: Create New Index via Node.js SDK
+───────────────────────────────────────────
+```javascript
+import { Pinecone } from '@pinecone-database/pinecone';
+
+const pc = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
+
+// Delete old index (optional)
+// await pc.deleteIndex('chatrag');
+
+// Create new index
+await pc.createIndex({
+  name: 'chatrag',
+  dimension: 768,       // ← all-mpnet-base-v2 dimension
+  metric: 'cosine',     // ← CRITICAL!
+  spec: {
+    serverless: {
+      cloud: 'aws',
+      region: 'us-east-1'
+    }
+  }
+});
+```
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         AFTER CREATING NEW INDEX                             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+1. Update .env if you used a different index name:
+   PINECONE_INDEX_NAME=chatrag-v2
+
+2. Restart your backend server
+
+3. Re-upload all your documents
+   (Old embeddings won't work with the new index)
+
+4. Test with a query to verify it's working
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    UNDERSTANDING SIMILARITY METRICS                          ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+COSINE (Recommended for semantic search) ✅
+────────────────────────────────────────
+Formula: (A · B) / (||A|| × ||B||)
+Range: -1 to 1 (or 0 to 1 for positive embeddings)
+Use case: Semantic similarity, text search
+Best for: Document retrieval, RAG systems
+
+EUCLIDEAN (Not recommended) ❌
+──────────────────────────────
+Formula: √(Σ(a_i - b_i)²)
+Range: 0 to ∞
+Use case: Spatial distance
+Best for: Image similarity, clustering
+
+DOT PRODUCT (Can work with normalized vectors) ⚠️
+──────────────────────────────────────────────────
+Formula: Σ(a_i × b_i)
+Range: -∞ to ∞
+Use case: When vectors are already normalized
+Note: Equivalent to cosine when vectors are normalized
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                           VERIFICATION STEPS                                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+After setting up your index correctly:
+
+✓ 1. Upload a test document
+✓ 2. Query with the exact same text
+✓ 3. Check the similarity score → Should be ≈ 1.0 (very close to 1)
+✓ 4. Query with related text → Should be > 0.7
+✓ 5. Query with unrelated text → Should be < 0.3
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                              QUICK REFERENCE                                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Model:              sentence-transformers/all-mpnet-base-v2
+Output Dimension:   768
+Required Metric:    cosine
+Normalization:      ✅ Implemented (automatic)
+Score Range:        0.0 (unrelated) to 1.0 (identical)
+
+For detailed information, see: COSINE_SIMILARITY.md
